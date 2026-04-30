@@ -16,7 +16,7 @@
 
         <div class="auth-header">
             <h1>Meu Barbeiro</h1>
-            <p>Crie sua conta</p>
+            <p>Crie sua conta</p>a
         </div>
 
         <form class="form active" id="registerForm">
@@ -102,31 +102,7 @@
 </div>
 
 <script>
-// 👁️ senha
-function toggleSenha(id) {
-    const input = document.getElementById(id);
-    input.type = input.type === "password" ? "text" : "password";
-}
-
-// 🔄 troca tipo
-const radios = document.querySelectorAll('input[name="tipo"]');
-const userFields = document.getElementById("camposUsuario");
-const barbFields = document.getElementById("camposBarbearia");
-
-radios.forEach(r => {
-    r.addEventListener("change", () => {
-        if (r.value === "barbearia" && r.checked) {
-            barbFields.style.display = "block";
-            userFields.style.display = "none";
-        } else {
-            barbFields.style.display = "none";
-            userFields.style.display = "block";
-        }
-    });
-});
-
-// 🔍 BUSCAR CEP (ViaCEP)
-document.getElementById("cep").addEventListener("blur", async () => {
+    document.getElementById("cep").addEventListener("blur", async () => {
     const cep = document.getElementById("cep").value.replace(/\D/g, '');
 
     if (cep.length !== 8) return;
@@ -178,6 +154,42 @@ document.getElementById("registerForm").addEventListener("submit", function(e) {
     }
 
     erro.textContent = "";
+});
+
+document.getElementById("registerForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const tipo = document.querySelector('input[name="tipo"]:checked').value;
+
+    const data = {
+        username: document.querySelector('#camposUsuario input')?.value,
+        email: document.querySelector('input[type="email"]').value,
+        password: document.getElementById("senha").value,
+        role: tipo,
+
+        nomeBarbearia: document.getElementById("nomeBarbearia")?.value,
+        cep: document.getElementById("cep")?.value,
+        rua: document.getElementById("rua")?.value,
+        numero: document.getElementById("numero")?.value,
+        cnpj: document.getElementById("cnpj")?.value
+    };
+
+    const res = await fetch("/auth/register", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    });
+
+    const result = await res.json();
+
+    if (!res.ok) {
+        alert(result.message);
+        return;
+    }
+
+    alert("Conta criada com sucesso!");
 });
 </script>
 
