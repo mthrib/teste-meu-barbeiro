@@ -1,0 +1,45 @@
+{
+    "name": "jwt-authentication-tutorial",
+    "version": "1.0.0",
+    "description": "This project provides learning material for JWT authentication and password hashing with bcrypt in Node.js.",
+    "main": "server.js",
+    "scripts": {
+        "dev": "node --watch src/server.js",
+        "start": "node src/server.js",
+        "migrate": "knex migrate:latest --knexfile knexfile.js --env production",
+        "migrate:dev": "knex migrate:latest --knexfile knexfile.js --env development",
+        "migrate:test": "knex migrate:latest --knexfile knexfile.js --env test",
+        "test": "cross-env NODE_ENV=test jest --runInBand --detectOpenHandles"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/arturbomtempo-dev/jwt-authentication-tutorial.git"
+    },
+    "keywords": [],
+    "author": "Artur Bomtempo Colen",
+    "license": "MIT",
+    "type": "commonjs",
+    "bugs": {
+        "url": "https://github.com/arturbomtempo-dev/jwt-authentication-tutorial/issues"
+    },
+    "homepage": "https://github.com/arturbomtempo-dev/jwt-authentication-tutorial#readme",
+    "dependencies": {
+        "bcrypt": "^6.0.0",
+        "cookie-parser": "^1.4.7",
+        "dotenv": "^17.2.1",
+        "express": "^5.1.0",
+        "jsonwebtoken": "^9.0.2",
+        "knex": "^3.1.0",
+        "pg": "^8.16.3",
+        "swagger-jsdoc": "^6.2.8",
+        "swagger-ui-express": "^5.0.1",
+        "uuid": "^11.1.0",
+        "zod": "^4.0.17"
+    },
+    "devDependencies": {
+        "cross-env": "^10.0.0",
+        "jest": "^30.0.5",
+        "prettier": "^3.6.2",
+        "supertest": "^7.1.4"
+    }
+}
