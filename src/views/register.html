@@ -1,25 +1,185 @@
-<!doctype html>
-<html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Cadastro</title>
-        <link rel="stylesheet" href="/public/css/style.css" />
-    </head>
-    <body>
-        <h2>Cadastro</h2>
-        <form id="registerForm">
-            <input name="email" type="email" placeholder="Email" required />
-            <input name="username" type="text" placeholder="Username" required />
-            <input name="password" type="password" placeholder="Senha (min 8)" required />
-            <select name="role">
-                <option value="user" selected>User</option>
-                <option value="admin">Admin</option>
-            </select>
-            <button type="submit">Cadastrar</button>
-        </form>
-        <pre id="out"></pre>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Criar Conta | Meu Barbeiro</title>
 
-        <script src="/public/js/register.js"></script>
-    </body>
+<link rel="stylesheet" href="../public/css/style.css">
+</head>
+
+<body>
+
+<div class="auth-container">
+
+    <div class="auth-box">
+
+        <div class="auth-header">
+            <h1>Meu Barbeiro</h1>
+            <p>Crie sua conta</p>
+        </div>
+
+        <form class="form active" id="registerForm">
+
+            <h2>Criar Conta</h2>
+
+            <!-- TIPO -->
+            <div class="tipo-conta">
+                <label><input type="radio" name="tipo" value="usuario" checked> Usuário</label>
+                <label><input type="radio" name="tipo" value="barbearia"> Barbearia</label>
+            </div>
+
+            <!-- USUÁRIO -->
+            <div id="camposUsuario">
+
+                <div class="input-group">
+                    <input type="text" required placeholder=" ">
+                    <label>Nome completo</label>
+                </div>
+
+            </div>
+
+            <!-- EMAIL (AMBOS) -->
+            <div class="input-group">
+                <input type="email" required placeholder=" ">
+                <label>Email</label>
+            </div>
+
+            <!-- BARBEARIA -->
+            <div id="camposBarbearia" style="display:none;">
+
+                <div class="input-group">
+                    <input type="text" id="nomeBarbearia" placeholder=" ">
+                    <label>Nome da Barbearia</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="text" id="cep" maxlength="9" placeholder=" ">
+                    <label>CEP</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="text" id="rua" readonly placeholder=" ">
+                    <label>Rua</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="text" id="numero" placeholder=" ">
+                    <label>Número</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="text" id="cnpj" placeholder=" ">
+                    <label>CNPJ (opcional)</label>
+                </div>
+
+            </div>
+
+            <!-- SENHA -->
+            <div class="input-group">
+                <input type="password" id="senha" required placeholder=" ">
+                <label>Senha</label>
+                <span class="toggle" onclick="toggleSenha('senha')">👁️</span>
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="confirmarSenha" required placeholder=" ">
+                <label>Confirmar senha</label>
+                <span class="toggle" onclick="toggleSenha('confirmarSenha')">👁️</span>
+            </div>
+
+            <small id="erroSenha"></small>
+
+            <button type="submit">Cadastrar</button>
+
+        </form>
+        <p class="switch">
+            Já tem uma conta?
+            <a href="login.html">Entrar</a>
+        </p>
+    </div>
+
+</div>
+
+<script>
+// 👁️ senha
+function toggleSenha(id) {
+    const input = document.getElementById(id);
+    input.type = input.type === "password" ? "text" : "password";
+}
+
+// 🔄 troca tipo
+const radios = document.querySelectorAll('input[name="tipo"]');
+const userFields = document.getElementById("camposUsuario");
+const barbFields = document.getElementById("camposBarbearia");
+
+radios.forEach(r => {
+    r.addEventListener("change", () => {
+        if (r.value === "barbearia" && r.checked) {
+            barbFields.style.display = "block";
+            userFields.style.display = "none";
+        } else {
+            barbFields.style.display = "none";
+            userFields.style.display = "block";
+        }
+    });
+});
+
+// 🔍 BUSCAR CEP (ViaCEP)
+document.getElementById("cep").addEventListener("blur", async () => {
+    const cep = document.getElementById("cep").value.replace(/\D/g, '');
+
+    if (cep.length !== 8) return;
+
+    try {
+        const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+        const data = await res.json();
+
+        if (!data.erro) {
+            document.getElementById("rua").value = data.logradouro;
+        }
+    } catch (err) {
+        console.log("Erro ao buscar CEP");
+    }
+});
+
+// 🔒 validação
+document.getElementById("registerForm").addEventListener("submit", function(e) {
+
+    const senha = document.getElementById("senha").value;
+    const confirmar = document.getElementById("confirmarSenha").value;
+    const erro = document.getElementById("erroSenha");
+    const tipo = document.querySelector('input[name="tipo"]:checked').value;
+
+    const regra = /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,}$/;
+
+    if (!regra.test(senha)) {
+        e.preventDefault();
+        erro.textContent = "Senha fraca.";
+        return;
+    }
+
+    if (senha !== confirmar) {
+        e.preventDefault();
+        erro.textContent = "As senhas não coincidem.";
+        return;
+    }
+
+    if (tipo === "barbearia") {
+        const nome = document.getElementById("nomeBarbearia").value;
+        const cep = document.getElementById("cep").value;
+        const numero = document.getElementById("numero").value;
+
+        if (!nome || !cep || !numero) {
+            e.preventDefault();
+            erro.textContent = "Preencha os dados da barbearia.";
+            return;
+        }
+    }
+
+    erro.textContent = "";
+});
+</script>
+
+</body>
 </html>

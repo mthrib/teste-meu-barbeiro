@@ -1,22 +1,60 @@
-<!doctype html>
-<html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Login</title>
-        <link rel="stylesheet" href="/public/css/style.css" />
-    </head>
-    <body>
-        <h2>Login</h2>
-        <form id="loginForm">
-            <input name="email" type="email" placeholder="Email (ou preencha username abaixo)" />
-            <input name="username" type="text" placeholder="Username (alternativo)" />
-            <input name="password" type="password" placeholder="Senha" required />
-            <button type="submit">Entrar</button>
-        </form>
-        <button id="logoutBtn">Logout</button>
-        <pre id="out"></pre>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login | Meu Barbeiro</title>
 
-        <script src="/public/js/login.js"></script>
-    </body>
+<link rel="stylesheet" href="../public/css/style.css">
+</head>
+
+<body>
+
+<div class="auth-container">
+
+    <div class="auth-box">
+
+        <div class="auth-header">
+            <h1>Meu Barbeiro</h1>
+            <p>Entre na sua conta</p>
+        </div>
+
+        <form class="form active">
+
+            <h2>Entrar</h2>
+
+            <!-- EMAIL -->
+            <div class="input-group">
+                <input type="email" required placeholder=" ">
+                <label>Email</label>
+            </div>
+
+            <!-- SENHA -->
+            <div class="input-group">
+                <input type="password" id="loginSenha" required placeholder=" ">
+                <label>Senha</label>
+                <span class="toggle" onclick="toggleSenha('loginSenha')">👁️</span>
+            </div>
+
+            <button type="submit">Entrar</button>
+
+            <p class="switch">
+                Não tem conta?
+                <a href="register.html">Criar conta</a>
+            </p>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+function toggleSenha(id) {
+    const input = document.getElementById(id);
+    input.type = input.type === "password" ? "text" : "password";
+}
+</script>
+
+</body>
 </html>

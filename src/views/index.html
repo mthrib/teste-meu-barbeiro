@@ -1,18 +1,128 @@
-<!doctype html>
-<html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>JWT Demo</title>
-        <link rel="stylesheet" href="/public/css/style.css" />
-    </head>
-    <body>
-        <h1>JWT na prática</h1>
-        <nav>
-            <a href="/register">Cadastro</a> | <a href="/login">Login</a> |
-            <a href="/user">Área do Usuário</a> |
-            <a href="/admin">Dashboard Admin</a>
-        </nav>
-        <p>Use os links acima para testar o fluxo completo.</p>
-    </body>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/10f5050d36.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../public/css/mobile-first.css">
+    <link rel="stylesheet" href="../public/css/media-query.css">
+    <title>Meu Barbeiro</title>
+</head>
+
+<body>
+
+<header>
+    <div class="container header-container">
+        <div class="header-left">
+            <img src="src/logo.png" alt="LOGO">
+        </div>
+
+        <div class="header-right">
+            <a href="pages/login.html" class="log">Entrar</a>
+            <a href="pages/registro.html" class="criar-conta">Criar Conta</a>
+        </div>
+    </div>
+</header>
+
+<main>
+
+<section class="home">
+    <div class="container">
+        <div class="home-f">
+            <h1>Seu estilo começa <span>aqui</span></h1>
+            <div class="btn-sobre">
+                <a href="#info">Saiba mais</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="padding">
+    <section class="intro">
+        <div class="container">
+            <h2>O <span>Meu Barbeiro</span> conecta você ao seu <span>melhor estilo</span>.</h2>
+            <p>
+                Agende seu corte em segundos com barbeiros profissionais.
+                Tenha uma experiência moderna, rápida e sem complicação.
+            </p>
+        </div>
+    </section>
+    
+    <section class="info" id="info">
+        <div class="container flex">
+    
+            <div class="box">
+                <div class="box-txt">
+                    <h2>Agende em Segundos</h2>
+                    <p>Escolha seu horário sem ligações ou espera.</p>
+                </div>
+            </div>
+    
+            <div class="box" id="box-reverse">
+                <div class="box-txt">
+                    <h2>Barbeiros Profissionais</h2>
+                    <p>Profissionais experientes para o melhor resultado.</p>
+                </div>
+            </div>
+    
+            <div class="box">
+                <div class="box-txt">
+                    <h2>Experiência Premium</h2>
+                    <p>Ambiente moderno e confortável.</p>
+                </div>
+            </div>
+    
+            <div class="box" id="box-reverse">
+                <div class="box-txt">
+                    <h2>Confiança e Estilo</h2>
+                    <p>Mais do que um corte, entregamos identidade.</p>
+                </div>
+            </div>
+    
+        </div>
+    </section>
+</div>
+
+<section class="chamar">
+    <div class="container">
+        <h2>Pronto para mudar seu estilo hoje?</h2>
+        <p>Agende agora e descubra uma nova experiência, ou contrate nosso serviço.</p>
+
+        <div class="flex-btn">
+            <button>
+                <a href="back-end/views/login.pug">Agendar meu horário</a>
+            </button>
+            <button>
+                <a href="back-end/views/login.pug">Contratar Serviço</a>
+            </button>
+        </div>
+        
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <div class="container footer-container flex">
+
+        <img src="src/logo.png">
+
+        <div class="footer-info">
+            <h3>Fale Conosco</h3>
+            <p>(xx) xxxx-xxxx</p>
+            <p>Rua Exemplo, 123</p>
+            <p>email@contato.com</p>
+        </div>
+
+        <div class="social">
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
+
+    </div>
+</footer>
+
+</body>
 </html>
