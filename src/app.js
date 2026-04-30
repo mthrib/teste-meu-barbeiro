@@ -15,12 +15,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use('/public', express.static(path.join(__dirname, '../public')));
 
 app.get('/', (_req, res) => res.sendFile(path.join(__dirname, 'views', 'index.html')));
 app.get('/register', (_req, res) => res.sendFile(path.join(__dirname, 'views', 'register.html')));
 app.get('/login', (_req, res) => res.sendFile(path.join(__dirname, 'views', 'login.html')));
-app.get('/user', (_req, res) => res.sendFile(path.join(__dirname, 'views', 'user.html')));
 app.get('/admin', (_req, res) => res.sendFile(path.join(__dirname, 'views', 'admin.html')));
 
 app.use('/auth', authRoutes);
